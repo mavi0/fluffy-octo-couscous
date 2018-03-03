@@ -13,7 +13,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT Prefix, COUNT(Prefix) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(Prefix) DESC LIMIT 5;");
+$query = sprintf("SELECT Prefix, COUNT(Prefix) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(Prefix) DESC LIMIT 10;");
 
 //execute query
 $result = $mysqli->query($query);

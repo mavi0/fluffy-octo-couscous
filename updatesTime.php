@@ -13,7 +13,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT Prefix, COUNT(Prefix) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(Prefix) DESC LIMIT 5;");
+$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ASC;");
 
 //execute query
 $result = $mysqli->query($query);
