@@ -154,7 +154,7 @@ function updateHours(label) {
 }
 
 function updateMinutes(label) {
-	alert(label);
+	// alert(label);
 	$.ajax({
 		url: "updatesTimeMinute.php",
 		type: "POST",
@@ -202,14 +202,15 @@ function updateMinutes(label) {
 				}
 			});
 
-			// document.getElementById("updatesTimeCanvasHour").onclick = function(evt){
-			// 	var activePoints = lineGraph.getElementsAtEvent(evt);
-			// 	var firstPoint = activePoints[0];
-			// 	var label = lineGraph.data.labels[firstPoint._index];
-			// 	var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
-			// 	if (firstPoint !== undefined)
-			// 		updateMinutes(label);
-			// 	};
+			document.getElementById("updatesTimeCanvasMinute").onclick = function(evt){
+				var activePoints = lineGraph.getElementsAtEvent(evt);
+				var firstPoint = activePoints[0];
+				var label = lineGraph.data.labels[firstPoint._index];
+				var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+				if (firstPoint !== undefined){
+					window.location.href = `time.html?timestamp=${label}`;
+				}
+			};
 
 			var wlink = document.getElementById('updatesTimeCanvasWarn');
 			wlink.style.display = 'none';
