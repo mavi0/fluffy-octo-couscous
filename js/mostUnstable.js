@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://127.0.0.1/300/fluffy-octo-couscous/mostUnstable.php",
+		url: "mostUnstable.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);

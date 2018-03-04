@@ -5,8 +5,11 @@ header('Content-Type: application/json');
 //database
 include_once("constants.php");
 
-$peername = $_POST['peername'];
+$timestamp = $_POST['timestamp'];
+$endTimeStamp = substr($timestamp, 0, 17);
+$endTimeStamp = $endTimeStamp . "59.998";
 
+// print $timestamp;
 //get connection
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -15,7 +18,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ASC;");
+$query = sprintf("SELECT LastModified AS Timestamp, COUNT(LastModified) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' AND LastModified BETWEEN '$timestamp' AND '$endTimeStamp' GROUP BY LastModified ORDER BY LastModified;");
 
 //execute query
 $result = $mysqli->query($query);
@@ -31,6 +34,7 @@ $result->close();
 
 //close connection
 $mysqli->close();
+
 
 //now print the data
 print json_encode($data);

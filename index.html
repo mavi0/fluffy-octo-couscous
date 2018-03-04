@@ -45,7 +45,7 @@
             <span class="nav-link-text">Tables</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+        <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-wrench"></i>
             <span class="nav-link-text">Components</span>
@@ -116,7 +116,7 @@
             <span class="nav-link-text">Link</span>
           </a>
         </li>
-      </ul>
+      </ul> -->
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -300,13 +300,21 @@
       <!-- Updates over time-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-area-chart"></i> Updates over time</div>
-          <div class="card-body">
-            <canvas id="updatesTimeCanvas"></canvas>
-            <div class="alert alert-info" id="updatesTimeCanvasWarn">
-              Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
-            </div>
+          <i class="fa fa-area-chart"></i> Updates over time <button type="button" class="btn btn-sm" id="updatesTimeButton" style="display: none;">Back</button></div>
+          <!-- 1 point, 1 hour -->
+          <div class="alert alert-info" id="updatesTimeCanvasWarn">
+            Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
           </div>
+          <div class="card-body" id="updatesTimeWrapper">
+            <canvas id="updatesTimeCanvas"></canvas>
+          </div>
+          <!-- 1 point, 1 minute -->
+          <div class="card-body" id="updatesTimeHourWrapper" style="display: none;">
+          </div>
+          <!-- 1 point, 1 Second -->
+          <div class="card-body" id="updatesTimeMinuteWrapper" style="display: none;">
+          </div>
+
         <div class="card-footer small text-muted">Generated now, just for you</div>
       </div>
       <div class="row">
@@ -315,21 +323,21 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fa fa-bar-chart"></i> Top 10 Most Unstable Prefixes</div>
+              <div class="alert alert-info" id="mostUnstableCanvasWarn">
+                Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+              </div>
               <div class="card-body">
                 <canvas id="mostUnstableCanvas"></canvas>
-                <div class="alert alert-info" id="mostUnstableCanvasWarn">
-                  Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
-                </div>
               </div>
             <div class="card-footer small text-muted">Generated now, just for you</div>
           </div>
           <!-- Card Columns Example Social Feed-->
-          <div class="mb-0 mt-4">
+          <!-- <div class="mb-0 mt-4">
             <i class="fa fa-newspaper-o"></i> News Feed</div>
           <hr class="mt-2">
-          <div class="card-columns">
+          <div class="card-columns"> -->
             <!-- Example Social Card-->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
               <a href="#">
                 <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="">
               </a>
@@ -384,9 +392,9 @@
                 </div>
               </div>
               <div class="card-footer small text-muted">Posted 32 mins ago</div>
-            </div>
+            </div> -->
             <!-- Example Social Card-->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
               <a href="#">
                 <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=180" alt="">
               </a>
@@ -424,9 +432,9 @@
                 </div>
               </div>
               <div class="card-footer small text-muted">Posted 46 mins ago</div>
-            </div>
+            </div> -->
             <!-- Example Social Card-->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
               <a href="#">
                 <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=281" alt="">
               </a>
@@ -448,9 +456,9 @@
                   <i class="fa fa-fw fa-share"></i>Share</a>
               </div>
               <div class="card-footer small text-muted">Posted 1 hr ago</div>
-            </div>
+            </div> -->
             <!-- Example Social Card-->
-            <div class="card mb-3">
+            <!-- <div class="card mb-3">
               <a href="#">
                 <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=185" alt="">
               </a>
@@ -511,7 +519,7 @@
                 </div>
               </div>
               <div class="card-footer small text-muted">Posted yesterday</div>
-            </div>
+            </div> -->
           </div>
           <!-- /Card Columns-->
         </div>
@@ -1073,7 +1081,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © Your Website 2018</small>
+          <small>Copyright © James Davies 2018</small>
         </div>
       </div>
     </footer>
@@ -1115,6 +1123,7 @@
     <!-- <script src="js/sb-admin-charts.min.js"></script> -->
     <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
 		<script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
 		<script type="text/javascript" src="js/mostUnstable.js"></script>
     <script type="text/javascript" src="js/updatesTime.js"></script>
   </div>
