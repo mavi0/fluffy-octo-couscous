@@ -24,9 +24,9 @@ $(document).ready(function(){
         dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]).draw();
         // $('#dataTable').append('<tr><td>'+Prefix[i]+'</td><td>'+Origin[i]+'</td><td>'+Path[i]+'</td><td>'+Count[i]+'</td></tr>');
       }
-      error: function(data) {
-  			console.log(data);
-  		}
+    },
+    error: function(data) {
+			console.log(data);
     }
   });
 });

@@ -6,7 +6,10 @@ header('Content-Type: application/json');
 include_once("constants.php");
 
 $peername = $_POST['peername'];
-
+$as = $_POST['as'];
+$timestamp = $_POST['timestamp'];
+$endTimeStamp = substr($timestamp, 0, 14);
+$endTimeStamp = $endTimeStamp . "59:59.998";
 //get connection
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -15,7 +18,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ASC;");
+$query = sprintf("SELECT Prefix, AS_Path, ASPath_Count FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS=$as AND LastModified BETWEEN '$timestamp' AND '$endTimeStamp' ORDER BY LastModified;");
 
 //execute query
 $result = $mysqli->query($query);

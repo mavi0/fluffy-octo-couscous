@@ -18,7 +18,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 1 MINUTE),'%%Y-%%m-%%d %%H:%%i:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 1 MINUTE),'%%Y-%%m-%%d %%H:%%i:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' AND LastModified BETWEEN '$timestamp' AND '$endTimeStamp' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 1 MINUTE),'%%Y-%%m-%%d %%H:%%i:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 1 MINUTE),'%%Y-%%m-%%d-%%H:%%i:00');");
+$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 MINUTE),'%%Y-%%m-%%d %%H:%%i:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 MINUTE),'%%Y-%%m-%%d %%H:%%i:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' AND LastModified BETWEEN '$timestamp' AND '$endTimeStamp' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 MINUTE),'%%Y-%%m-%%d %%H:%%i:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 MINUTE),'%%Y-%%m-%%d-%%H:%%i:00');");
 
 //execute query
 $result = $mysqli->query($query);

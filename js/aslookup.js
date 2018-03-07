@@ -1,10 +1,15 @@
+var dataTable;
+var as;
+const peername = "10.0.2.2";
+// const peername;
+
 $(document).ready(function(){
-  const peername = "10.0.2.2";
-  var as = $.getUrlVar('as');
+  as = $.getUrlVar('as');
   as = decodeURIComponent(as);
   console.log(as);
 
   $("#updatesHeader").html(`<i class="fa fa-area-chart"></i> Updates over time for AS${as}`);
+  $("#tableName").html(`<i class="fa fa-table"></i> AS Detail for AS${as}`);
   //
   $.ajax({
 		url: "asUpdatesTime.php",
@@ -20,7 +25,7 @@ $(document).ready(function(){
 				Updates.push(data[i].Updates);
 			}
 
-			console.log(Timestamp);
+			// console.log(Timestamp);
 
 			const ctx = $("#updatesTimeCanvas");
 
@@ -50,13 +55,16 @@ $(document).ready(function(){
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
-              }
+              },
+              ticks: {
+								beginAtZero:true
+							}
 						}]
 					}
 				}
 			});
 
-			var wlink = document.getElementById('updatesTimeCanvasWarn');
+			var wlink = document.getElementById('asChartWarn');
 			wlink.style.display = 'none';
 
       document.getElementById("updatesTimeCanvas").onclick = function(evt){
@@ -67,59 +75,79 @@ $(document).ready(function(){
         if (firstPoint !== undefined){
           openAS(label, as);
         }
-        };
-
-
-
-      // var Prefix = [];
-      // var Origin = [];
-      // var Path = [];
-      // var Count = [];
-      // var dataTable = $('#dataTable').DataTable();
-      // for (var i in data) {
-      //   console.log(i);
-      //   Prefix.push(data[i].Prefix);
-      //   Origin.push(data[i].Origin_AS);
-      //   Path.push(data[i].AS_Path);
-      //   Count.push(data[i].ASPath_Count);
-      //   dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]).draw();
-      //   // $('#dataTable').append('<tr><td>'+Prefix[i]+'</td><td>'+Origin[i]+'</td><td>'+Path[i]+'</td><td>'+Count[i]+'</td></tr>');
-      // }
-
-
-
+      };
     },
     error: function(data) {
 			console.log(data);
 		}
   });
+
+  $.ajax({
+    url: "astime.php",
+    type: "POST",
+    data: {peername: peername, as:as},
+    success: function(data) {
+      // console.log("astime", data);
+      var Prefix = [];
+      var Path = [];
+      var Count = [];
+      var LastModified = [];
+      dataTable = $('#dataTable').DataTable();
+      for (var i in data) {
+        Prefix.push(data[i].Prefix);
+        Path.push(data[i].AS_Path);
+        Count.push(data[i].ASPath_Count);
+        LastModified.push(data[i].LastModified);
+        // console.log(moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"));
+        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), Prefix[i], Path[i], Count[i]]).draw();
+      }
+      var wlink = document.getElementById('asTableWarn');
+      wlink.style.display = 'none';
+      // var dlink = document.getElementById('dataTable');
+      // wlink.style.display = 'block';
+    },
+    error: function(data) {
+      console.log("astime", data);
+    }
+  });
+
+  $('#dataTable tbody').on('click', 'tr', function () {
+        console.log("click");
+        var data = dataTable.row( this ).data();
+        var ip = data[1];
+        window.location.href = `iplookup.html?ip=${ip}`;
+        // alert( 'You clicked on ' + data[1] );
+    } );
 });
 
 function openAS(timestamp, as) {
-    $('#tableName').html(`<i class="fa fa-table"></i> Updates on: ${timestamp.substring(0, 19)}`);
+    var parsedTimestamp = moment(timestamp).format("MMMM Do YYYY, h:mm:ss");
+    $("#tableName").html(`<i class="fa fa-table"></i> AS Detail for <b>AS${as}</b> at ${parsedTimestamp}`);
+
+    var wlink = document.getElementById('asTableWarn');
+    wlink.style.display = 'block';
+
     $.ajax({
 		url: "timeAS.php",
 		type: "POST",
-		data: {peername: '10.0.2.2', timestamp: timestamp, as:as},
+		data: {peername: peername, timestamp: timestamp, as:as},
 		success: function(data) {
-      console.log(data);
+      // console.log(data);
       var Prefix = [];
-      var Origin = [];
       var Path = [];
       var Count = [];
-      var dataTable = $('#dataTable').DataTable();
+      dataTable.clear();
       for (var i in data) {
-        console.log(i);
+        // console.log(i);
         Prefix.push(data[i].Prefix);
-        Origin.push(data[i].Origin_AS);
         Path.push(data[i].AS_Path);
         Count.push(data[i].ASPath_Count);
-        dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]).draw();
-        // $('#dataTable').append('<tr><td>'+Prefix[i]+'</td><td>'+Origin[i]+'</td><td>'+Path[i]+'</td><td>'+Count[i]+'</td></tr>');
-      },
-      error: function(data) {
-  			console.log(data);
-  		}
+        dataTable.row.add([parsedTimestamp, Prefix[i], Path[i], Count[i]]).draw();
+      }
+			wlink.style.display = 'none';
+    },
+    error: function(data) {
+      console.log("openAS", data);
     }
   });
 }

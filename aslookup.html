@@ -82,7 +82,7 @@
         <div class="card-header" id="updatesHeader">
           <i class="fa fa-area-chart"></i> Updates over time</div>
           <!-- 1 point, 1 hour -->
-          <div class="alert alert-info" id="updatesTimeCanvasWarn">
+          <div class="alert alert-info" id="asChartWarn">
             Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
           </div>
           <div class="card-body" id="updatesTimeWrapper">
@@ -98,22 +98,25 @@
         <div class="card-footer small text-muted">Generated now, just for you</div>
       </div>
       <div class="card mb-3" id="asTable">
-        <div class="card-header" id="tableName"></div>
+        <div class="card-header" id="tableName"><i class="fa fa-table"></i> AS Detail</div>
+        <div class="alert alert-info" id="asTableWarn">
+          Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                  <th>Timestamp</th>
                   <th>Prefix</th>
-                  <th>Origin AS</th>
                   <th>AS Path</th>
                   <th>AS Hops</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
+                  <th>Timestamp</th>
                   <th>Prefix</th>
-                  <th>Origin AS</th>
                   <th>AS Path</th>
                   <th>AS Hops</th>
                 </tr>
@@ -172,6 +175,7 @@
     <!-- <script src="js/sb-admin-charts.min.js"></script> -->
     <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
 		<script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
     <!-- <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
 		<script type="text/javascript" src="js/mostUnstable.js"></script>
     <script type="text/javascript" src="js/updatesTime.js"></script> -->

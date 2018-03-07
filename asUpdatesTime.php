@@ -16,7 +16,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS=$as GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ASC;");
+$query = sprintf("SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS=$as GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ASC;");
 
 //execute query
 $result = $mysqli->query($query);

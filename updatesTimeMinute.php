@@ -9,6 +9,7 @@ $timestamp = $_POST['timestamp'];
 $endTimeStamp = substr($timestamp, 0, 17);
 $endTimeStamp = $endTimeStamp . "59.998";
 
+
 // print $timestamp;
 //get connection
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);

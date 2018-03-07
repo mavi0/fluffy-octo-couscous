@@ -6,7 +6,8 @@ header('Content-Type: application/json');
 include_once("constants.php");
 
 $peername = $_POST['peername'];
-$timestamp = $_POST['timestamp'];
+$as = $_POST['as'];
+
 //get connection
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -15,7 +16,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT Prefix,Origin_AS,AS_Path,ASPath_Count FROM v_routes_history WHERE PeerName='$peername' AND LastModified='$timestamp' ORDER BY LastModified;");
+$query = sprintf("SELECT Prefix,AS_Path,ASPath_Count,LastModified FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS=$as");
 
 //execute query
 $result = $mysqli->query($query);

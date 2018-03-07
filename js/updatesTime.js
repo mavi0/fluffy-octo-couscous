@@ -45,7 +45,10 @@ $(document).ready(function(){
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
-              }
+              },
+							ticks: {
+								beginAtZero:true
+							}
 						}]
 					}
 				}
@@ -75,7 +78,7 @@ $(document).ready(function(){
 });
 
 function updateHours(label) {
-	// alert(label);
+	console.log("hour", label);
 	$.ajax({
 		url: "updatesTimeHour.php",
 		type: "POST",
@@ -127,7 +130,10 @@ function updateHours(label) {
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
-              }
+              },
+							ticks: {
+								beginAtZero:true
+							}
 						}]
 					}
 				}
@@ -205,7 +211,10 @@ function updateMinutes(label) {
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
-              }
+              },
+							ticks: {
+								beginAtZero:true
+							}
 						}]
 					}
 				}
@@ -217,7 +226,11 @@ function updateMinutes(label) {
 				var label = lineGraph.data.labels[firstPoint._index];
 				var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
 				if (firstPoint !== undefined){
-					window.location.href = `time.html?timestamp=${label}`;
+					if (value < 2000) {
+						window.location.href = `time.html?timestamp=${label}`;
+					} else {
+						alert("The selected dataset is too large to be loaded. Please try another one");
+					}
 				}
 			};
 
