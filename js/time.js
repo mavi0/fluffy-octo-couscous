@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var timestamp = $.getUrlVar('timestamp');
   timestamp = decodeURIComponent(timestamp);
-  $('#tableName').html(`<i class="fa fa-table"></i> Updates on: ${timestamp.substring(0, 19)}`)
+  $('#tableName').html(`<i class="fa fa-table"></i> Updates on: ${timestamp.substring(0, 19)}`);
   console.log(timestamp);
   //print results
   $.ajax({
@@ -24,7 +24,9 @@ $(document).ready(function(){
         dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]).draw();
         // $('#dataTable').append('<tr><td>'+Prefix[i]+'</td><td>'+Origin[i]+'</td><td>'+Path[i]+'</td><td>'+Count[i]+'</td></tr>');
       }
-
+      error: function(data) {
+  			console.log(data);
+  		}
     }
   });
 });

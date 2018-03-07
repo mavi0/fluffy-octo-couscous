@@ -17,27 +17,6 @@ $(document).ready(function(){
 
 			console.log(Timestamp);
 
-			// var Timestamp1 = [];
-			// var Updates1 = [];
-			//
-			// $.ajax({
-			// 	url: "updatesTime.php",
-			// 	type: "POST",
-			// 	data: {peername: peername2},
-			// 	success: function(data1) {
-			// 		console.log(data1);
-			// 		for(var i in data1) {
-			// 			Timestamp1.push(data1[i].Timestamp);
-			// 			Updates1.push(data1[i].Updates);
-			// 		}
-			// 	},
-			// 	error: function(data1) {
-			// 		console.log(data1);
-			// 	}
-			// });
-			//
-			// console.log(Timestamp1);
-
 			const ctx = $("#updatesTimeCanvas");
 
 			var lineGraph = new Chart(ctx, {
@@ -56,7 +35,17 @@ $(document).ready(function(){
 				options: {
 					scales: {
 						xAxes: [{
-							position: 'bottom'
+							position: 'bottom',
+              scaleLabel: {
+                display: true,
+                labelString: 'Time'
+              }
+						}],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Updates'
+              }
 						}]
 					}
 				}
@@ -128,7 +117,17 @@ function updateHours(label) {
 				options: {
 					scales: {
 						xAxes: [{
-							position: 'bottom'
+							position: 'bottom',
+              scaleLabel: {
+                display: true,
+                labelString: 'Time'
+              }
+						}],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Updates'
+              }
 						}]
 					}
 				}
@@ -196,7 +195,17 @@ function updateMinutes(label) {
 				options: {
 					scales: {
 						xAxes: [{
-							position: 'bottom'
+							position: 'bottom',
+              scaleLabel: {
+                display: true,
+                labelString: 'Time'
+              }
+						}],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Updates'
+              }
 						}]
 					}
 				}
@@ -216,7 +225,6 @@ function updateMinutes(label) {
 			wlink.style.display = 'none';
 		},
 		error: function(data) {
-
 			console.log(data);
 		}
 	});

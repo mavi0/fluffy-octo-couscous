@@ -23,3 +23,7 @@ SELECT LastModified AS Timestamp, COUNT(LastModified) AS Updates FROM v_routes_h
 
 SELECT Prefix,Origin_AS,AS_Path,ASPath_Count FROM v_routes_history WHERE PeerName='10.0.2.2' AND LastModified="2018-02-22 02:17:34.000000" ORDER BY LastModified;
 SELECT Prefix,Origin_AS,AS_Path,ASPath_Count FROM v_routes_history WHERE PeerName='$peername' AND LastModified="$timestamp" ORDER BY LastModified;
+
+--updates over time AS
+SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%Y-%m-%d %H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%Y-%m-%d %H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' AND Origin_AS="109" GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%Y-%m-%d %H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%Y-%m-%d %H:00:00') ASC;
+SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS="$as" GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 MINUTE),'%%Y-%%m-%%d %%H:00:00') ASC;
