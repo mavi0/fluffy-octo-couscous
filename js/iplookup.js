@@ -1,20 +1,20 @@
 var dataTable;
-var as;
+var ip;
 const peername = "10.0.2.2";
 // const peername;
 
 $(document).ready(function(){
-  as = $.getUrlVar('as');
-  as = decodeURIComponent(as);
-  console.log(as);
+  ip = $.getUrlVar('ip');
+  ip = decodeURIComponent(ip);
+  console.log(ip);
 
-  $("#updatesHeader").html(`<i class="fa fa-area-chart"></i> Updates over time for AS${as}`);
-  $("#tableName").html(`<i class="fa fa-table"></i> AS Detail for AS${as}`);
-  //
+  $("#updatesHeader").html(`<i class="fa fa-area-chart"></i> Updates over time for Prefix ${ip}`);
+  $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for ${ip}`);
+
   $.ajax({
-		url: "asWhois.php",
+		url: "ipWhois.php",
 		type: "POST",
-		data: {as: as},
+		data: {ip: ip},
 		success: function(data) {
       console.log("whop", data);
       $("#whois").html(`<i class="fa fa-book"></i> AS Name  <b>${data}</b>`);
@@ -24,10 +24,11 @@ $(document).ready(function(){
 		}
   });
 
+  //
   $.ajax({
-		url: "asUpdatesTime.php",
+		url: "ipUpdatesTime.php",
 		type: "POST",
-		data: {peername: peername, as: as},
+		data: {peername: peername, ip: ip},
 		success: function(data) {
       console.log(data);
       var Timestamp = [];
@@ -77,7 +78,7 @@ $(document).ready(function(){
 				}
 			});
 
-			var wlink = document.getElementById('asChartWarn');
+			var wlink = document.getElementById('ipChartWarn');
 			wlink.style.display = 'none';
 
       document.getElementById("updatesTimeCanvas").onclick = function(evt){
@@ -86,7 +87,7 @@ $(document).ready(function(){
         var label = lineGraph.data.labels[firstPoint._index];
         var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
         if (firstPoint !== undefined){
-          openAS(label, as);
+          openIP(label, ip);
         }
       };
     },
@@ -96,71 +97,73 @@ $(document).ready(function(){
   });
 
   $.ajax({
-    url: "astime.php",
+    url: "iptime.php",
     type: "POST",
-    data: {peername: peername, as:as},
+    data: {peername: peername, ip:ip},
     success: function(data) {
       // console.log("astime", data);
-      var Prefix = [];
+      var As = [];
       var Path = [];
       var Count = [];
       var LastModified = [];
       dataTable = $('#dataTable').DataTable();
       for (var i in data) {
-        Prefix.push(data[i].Prefix);
+        As.push(data[i].Origin_AS);
         Path.push(data[i].AS_Path);
         Count.push(data[i].ASPath_Count);
         LastModified.push(data[i].LastModified);
         // console.log(moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"));
-        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), Prefix[i], Path[i], Count[i]]).draw();
+        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), As[i], Path[i], Count[i]]).draw();
       }
-      var wlink = document.getElementById('asTableWarn');
+      var wlink = document.getElementById('ipTableWarn');
       wlink.style.display = 'none';
       // var dlink = document.getElementById('dataTable');
       // wlink.style.display = 'block';
     },
     error: function(data) {
-      console.log("astime", data);
+      console.log("iptime", data);
     }
   });
 
-  $('#dataTable tbody').on('click', 'tr', function () {
+  $('#dataTable tbody').on('dblclick', 'tr', function () {
         console.log("click");
         var data = dataTable.row( this ).data();
-        var ip = data[1];
-        window.location.href = `iplookup.html?ip=${ip}`;
+        var as = data[1];
+        window.location.href = `aslookup.html?as=${as}`;
         // alert( 'You clicked on ' + data[1] );
     } );
 });
 
-function openAS(timestamp, as) {
+function openIP(timestamp, ip) {
     var parsedTimestamp = moment(timestamp).format("MMMM Do YYYY, h:mm:ss");
-    $("#tableName").html(`<i class="fa fa-table"></i> AS Detail for <b>AS${as}</b> at ${parsedTimestamp}`);
+    $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for ${ip} at ${parsedTimestamp}`);
 
-    var wlink = document.getElementById('asTableWarn');
+    var wlink = document.getElementById('ipTableWarn');
     wlink.style.display = 'block';
 
     $.ajax({
-		url: "timeAS.php",
+		url: "timeIP.php",
 		type: "POST",
-		data: {peername: peername, timestamp: timestamp, as:as},
+		data: {peername: peername, timestamp: timestamp, ip:ip},
 		success: function(data) {
-      // console.log(data);
-      var Prefix = [];
+      console.log(data);
+      var As = [];
       var Path = [];
       var Count = [];
       dataTable.clear();
       for (var i in data) {
-        // console.log(i);
-        Prefix.push(data[i].Prefix);
+        As.push(data[i].Origin_AS);
+        // console.log(As[i]);
         Path.push(data[i].AS_Path);
+        // console.log(Path[i]);
         Count.push(data[i].ASPath_Count);
-        dataTable.row.add([parsedTimestamp, Prefix[i], Path[i], Count[i]]).draw();
+        // console.log(Count[i]);
+        dataTable.row.add([parsedTimestamp, As[i], Path[i], Count[i]]).draw();
       }
 			wlink.style.display = 'none';
     },
     error: function(data) {
-      console.log("openAS", data);
+      console.log("openIP", data);
     }
   });
 }

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Epic ASes</title>
+  <title>Epic ASes / IP Lookup</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -61,16 +61,16 @@
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">AS Lookup</li>
+        <li class="breadcrumb-item active">IP Lookup</li>
       </ol>
       <!-- Updates over time-->
       <div class="card mb-3">
         <div class="card-header">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2" id="asSearch">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2" id="ipSearch">
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="i.e 15169" id="asSearchField">
+              <input class="form-control" type="text" placeholder="i.e 209.107.182.0" id="ipSearchField">
               <span class="input-group-append">
-                <button class="btn btn-primary" type="button" id="asSearchBtn">
+                <button class="btn btn-primary" type="button" id="ipSearchBtn">
                   <i class="fa fa-search"></i>
                 </button>
               </span>
@@ -78,14 +78,16 @@
           </form>
         </div>
       </div>
+
       <div class="card mb-3">
         <div class="card-body" id="whois"><i class="fa fa-book"></i></div>
       </div>
+
       <div class="card mb-3">
         <div class="card-header" id="updatesHeader">
           <i class="fa fa-area-chart"></i> Updates over time</div>
           <!-- 1 point, 1 hour -->
-          <div class="alert alert-info" id="asChartWarn">
+          <div class="alert alert-info" id="ipChartWarn">
             Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
           </div>
           <div class="card-body" id="updatesTimeWrapper">
@@ -100,9 +102,9 @@
 
         <div class="card-footer small text-muted">Generated now, just for you</div>
       </div>
-      <div class="card mb-3" id="asTable">
+      <div class="card mb-3" id="ipTable">
         <div class="card-header" id="tableName"><i class="fa fa-table"></i> AS Detail</div>
-        <div class="alert alert-info" id="asTableWarn">
+        <div class="alert alert-info" id="ipTableWarn">
           Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
         </div>
         <div class="card-body">
@@ -111,7 +113,7 @@
               <thead>
                 <tr>
                   <th>Timestamp</th>
-                  <th>Prefix</th>
+                  <th>AS Number</th>
                   <th>AS Path</th>
                   <th>AS Hops</th>
                 </tr>
@@ -119,7 +121,7 @@
               <tfoot>
                 <tr>
                   <th>Timestamp</th>
-                  <th>Prefix</th>
+                  <th>AS Number</th>
                   <th>AS Path</th>
                   <th>AS Hops</th>
                 </tr>
@@ -182,8 +184,8 @@
     <!-- <script type="text/javascript" src="js/chartjs-plugin-zoom.min.js"></script>
 		<script type="text/javascript" src="js/mostUnstable.js"></script>
     <script type="text/javascript" src="js/updatesTime.js"></script> -->
-    <script type="text/javascript" src="js/as.js"></script>
-    <script type="text/javascript" src="js/aslookup.js"></script>
+    <script type="text/javascript" src="js/ip.js"></script>
+    <script type="text/javascript" src="js/iplookup.js"></script>
   </div>
 </body>
 
