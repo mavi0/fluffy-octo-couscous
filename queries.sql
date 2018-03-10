@@ -6,7 +6,15 @@ SELECT DISTINCT Origin_AS, ASPath_Count FROM v_routes_history ORDER BY ASPath_Co
 
 SELECT Prefix,Origin_AS,LastModified,AS_Path FROM v_routes_history WHERE PeerName='10.0.2.2' AND Prefix='185.239.144.0' ORDER BY LastModified;
 
-SELECT Prefix, COUNT(Prefix) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(Prefix) DESC LIMIT 5;
+SELECT Prefix, COUNT(Prefix) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(Prefix) DESC LIMIT 10;
+
+--correctedMostUnstable
+SELECT Prefix, COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%Y-%m-%d %H:%i:%s')) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%Y-%m-%d %H:%i:%s')) DESC LIMIT 10;
+SELECT Prefix, COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%%Y-%%m-%d %%H:%%i:%%s')) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY Prefix ORDER BY COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%%Y-%%m-%%d %%H:%%i:%%s')) DESC LIMIT 10;
+SELECT Prefix, COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%Y-%m-%d %H:%i:%s')) AS Prefix_Count FROM v_routes_history WHERE PeerName='10.0.2.2' AND COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%Y-%m-%d %H:%i:%s')) > 1 GROUP BY Prefix ORDER BY COUNT(DISTINCT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 30 SECOND),'%Y-%m-%d %H:%i:%s')) ASC LIMIT 100;
+
+
+
 SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%Y-%m-%d %H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%Y-%m-%d %H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%Y-%m-%d %H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%Y-%m-%d %H:00:00') ASC LIMIT 20;
 --Same as prev w/ escaped %
 SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='10.0.2.2' GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ASC LIMIT 5;
