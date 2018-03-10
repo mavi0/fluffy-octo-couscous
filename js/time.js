@@ -1,6 +1,7 @@
 $(document).ready(function(){
   var timestamp = $.getUrlVar('timestamp');
   timestamp = decodeURIComponent(timestamp);
+  var dataTable;
   $('#tableName').html(`<i class="fa fa-table"></i> Updates on: ${timestamp.substring(0, 19)}`);
   console.log(timestamp);
   //print results
@@ -9,14 +10,14 @@ $(document).ready(function(){
 		type: "POST",
 		data: {peername: '10.0.2.2', timestamp: timestamp},
 		success: function(data) {
-      console.log(data);
+      // console.log(data);
       var Prefix = [];
       var Origin = [];
       var Path = [];
       var Count = [];
-      var dataTable = $('#dataTable').DataTable();
+      dataTable = $('#dataTable').DataTable();
       for (var i in data) {
-        console.log(i);
+        // console.log(i);
         Prefix.push(data[i].Prefix);
         Origin.push(data[i].Origin_AS);
         Path.push(data[i].AS_Path);
@@ -29,6 +30,14 @@ $(document).ready(function(){
 			console.log(data);
     }
   });
+
+  $('#dataTable tbody').on('dblclick', 'tr', function () {
+        console.log("click");
+        var data = dataTable.row( this ).data();
+        var ip = data[0];
+        window.location.href = `iplookup.html?ip=${ip}`;
+        // alert( 'You clicked on ' + data[1] );
+    } );
 });
 
 $.extend({

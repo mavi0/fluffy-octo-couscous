@@ -41,6 +41,17 @@ $(document).ready(function(){
 			});
 			var link = document.getElementById('mostUnstableCanvasWarn');
 			link.style.display = 'none'; //or
+
+			document.getElementById("mostUnstableCanvas").onclick = function(evt){
+				// alert();
+        var activePoints = barGraph.getElementsAtEvent(evt);
+        var firstPoint = activePoints[0];
+        var label = barGraph.data.labels[firstPoint._index];
+        var value = barGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+        if (firstPoint !== undefined){
+          window.location.href = `iplookup.html?ip=${label}`;
+        }
+      };
 		},
 		error: function(data) {
 

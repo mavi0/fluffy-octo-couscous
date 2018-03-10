@@ -1,5 +1,7 @@
+var peername;
+
 $(document).ready(function(){
-	const peername = "10.0.2.2";
+	peername = "10.0.2.2";
 
 	$.ajax({
 		url: "updatesTime.php",
@@ -25,6 +27,8 @@ $(document).ready(function(){
 					labels: Timestamp,
 					datasets : [{
 							label: peername,
+              lineTesnsion: 0.1,
+              cubicInterpolationMode: 'monotone',
 							borderColor: 'rgba(232, 65, 24,1.0)',
 							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
 							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
@@ -35,18 +39,24 @@ $(document).ready(function(){
 				options: {
 					scales: {
 						xAxes: [{
+              type: 'time',
+              distribution: 'series',
 							position: 'bottom',
               scaleLabel: {
                 display: true,
                 labelString: 'Time'
-              }
+              },
+              time: {
+                unit: 'day'
+              },
+              bounds : 'data'
 						}],
             yAxes: [{
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
               },
-							ticks: {
+              ticks: {
 								beginAtZero:true
 							}
 						}]
@@ -106,32 +116,38 @@ function updateHours(label) {
 				type: 'line',
 				data: {
 					labels: Timestamp,
-					datasets : [
-						{
-							label: 'Updates',
+					datasets : [{
+							label: peername,
+              lineTesnsion: 0.1,
+              cubicInterpolationMode: 'monotone',
 							borderColor: 'rgba(232, 65, 24,1.0)',
 							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
 							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
               pointRadius: 3,
 							data: Updates
-						}
-					]
+						}]
 				},
 				options: {
 					scales: {
 						xAxes: [{
+              type: 'time',
+              distribution: 'series',
 							position: 'bottom',
               scaleLabel: {
                 display: true,
                 labelString: 'Time'
-              }
+              },
+              time: {
+                unit: 'minute'
+              },
+              bounds : 'data'
 						}],
             yAxes: [{
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
               },
-							ticks: {
+              ticks: {
 								beginAtZero:true
 							}
 						}]
@@ -187,32 +203,38 @@ function updateMinutes(label) {
 				type: 'line',
 				data: {
 					labels: Timestamp,
-					datasets : [
-						{
-							label: 'Updates',
+					datasets : [{
+							label: peername,
+              lineTesnsion: 0.1,
+              cubicInterpolationMode: 'monotone',
 							borderColor: 'rgba(232, 65, 24,1.0)',
 							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
 							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
               pointRadius: 3,
 							data: Updates
-						}
-					]
+						}]
 				},
 				options: {
 					scales: {
 						xAxes: [{
+              type: 'time',
+              distribution: 'series',
 							position: 'bottom',
               scaleLabel: {
                 display: true,
                 labelString: 'Time'
-              }
+              },
+              time: {
+                unit: 'second'
+              },
+              bounds : 'data'
 						}],
             yAxes: [{
               scaleLabel: {
                 display: true,
                 labelString: 'Updates'
               },
-							ticks: {
+              ticks: {
 								beginAtZero:true
 							}
 						}]

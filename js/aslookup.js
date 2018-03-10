@@ -48,6 +48,8 @@ $(document).ready(function(){
 					labels: Timestamp,
 					datasets : [{
 							label: peername,
+              lineTesnsion: 0.1,
+              cubicInterpolationMode: 'monotone',
 							borderColor: 'rgba(232, 65, 24,1.0)',
 							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
 							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
@@ -58,11 +60,17 @@ $(document).ready(function(){
 				options: {
 					scales: {
 						xAxes: [{
+              type: 'time',
+              distribution: 'series',
 							position: 'bottom',
               scaleLabel: {
                 display: true,
                 labelString: 'Time'
-              }
+              },
+              time: {
+                unit: 'day'
+              },
+              bounds : 'data'
 						}],
             yAxes: [{
               scaleLabel: {
@@ -124,7 +132,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#dataTable tbody').on('click', 'tr', function () {
+  $('#dataTable tbody').on('dblclick', 'tr', function () {
         console.log("click");
         var data = dataTable.row( this ).data();
         var ip = data[1];
@@ -162,6 +170,80 @@ function openAS(timestamp, as) {
     error: function(data) {
       console.log("openAS", data);
     }
+  });
+}
+
+function updatesDay(){
+  $.ajax({
+		url: "asUpdatesTime.php",
+		type: "POST",
+		data: {peername: peername, as: as},
+		success: function(data) {
+      console.log(data);
+      var Timestamp = [];
+			var Updates = [];
+
+			for(var i in data) {
+				Timestamp.push(data[i].Timestamp);
+				Updates.push(data[i].Updates);
+			}
+
+			// console.log(Timestamp);
+
+			const ctx = $("#updatesTimeCanvas");
+
+			var lineGraph = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: Timestamp,
+					datasets : [{
+							label: peername,
+							borderColor: 'rgba(232, 65, 24,1.0)',
+							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
+							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
+              pointRadius: 3,
+							data: Updates
+						}]
+				},
+				options: {
+					scales: {
+						xAxes: [{
+              type: 'time',
+							position: 'bottom',
+              scaleLabel: {
+                display: true,
+                labelString: 'Time'
+              }
+						}],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Updates'
+              },
+              ticks: {
+								beginAtZero:true
+							}
+						}]
+					}
+				}
+			});
+
+			var wlink = document.getElementById('asChartWarn');
+			wlink.style.display = 'none';
+
+      document.getElementById("updatesTimeCanvas").onclick = function(evt){
+        var activePoints = lineGraph.getElementsAtEvent(evt);
+        var firstPoint = activePoints[0];
+        var label = lineGraph.data.labels[firstPoint._index];
+        var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+        if (firstPoint !== undefined){
+          openAS(label, as);
+        }
+      };
+    },
+    error: function(data) {
+			console.log(data);
+		}
   });
 }
 

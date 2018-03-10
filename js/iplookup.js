@@ -9,7 +9,7 @@ $(document).ready(function(){
   console.log(ip);
 
   $("#updatesHeader").html(`<i class="fa fa-area-chart"></i> Updates over time for Prefix ${ip}`);
-  $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for ${ip}`);
+  $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for <b>${ip}</b>`);
 
   $.ajax({
 		url: "ipWhois.php",
@@ -43,12 +43,14 @@ $(document).ready(function(){
 
 			const ctx = $("#updatesTimeCanvas");
 
-			var lineGraph = new Chart(ctx, {
+      var lineGraph = new Chart(ctx, {
 				type: 'line',
 				data: {
 					labels: Timestamp,
 					datasets : [{
 							label: peername,
+              lineTesnsion: 0.1,
+              cubicInterpolationMode: 'monotone',
 							borderColor: 'rgba(232, 65, 24,1.0)',
 							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
 							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
@@ -59,11 +61,17 @@ $(document).ready(function(){
 				options: {
 					scales: {
 						xAxes: [{
+              type: 'time',
+              distribution: 'series',
 							position: 'bottom',
               scaleLabel: {
                 display: true,
                 labelString: 'Time'
-              }
+              },
+              time: {
+                unit: 'day'
+              },
+              bounds : 'data'
 						}],
             yAxes: [{
               scaleLabel: {
@@ -136,7 +144,7 @@ $(document).ready(function(){
 
 function openIP(timestamp, ip) {
     var parsedTimestamp = moment(timestamp).format("MMMM Do YYYY, h:mm:ss");
-    $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for ${ip} at ${parsedTimestamp}`);
+    $("#tableName").html(`<i class="fa fa-table"></i> Prefix Detail for <b>${ip}</b> at ${parsedTimestamp}`);
 
     var wlink = document.getElementById('ipTableWarn');
     wlink.style.display = 'block';
