@@ -38,3 +38,6 @@ SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%Y-%m-%d %H:00:00') 
 SELECT DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') AS Timestamp, COUNT(DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00')) AS Updates FROM v_routes_history WHERE PeerName='$peername' AND Origin_AS="$as" GROUP BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ORDER BY DATE_FORMAT(DATE_ADD(LastModified, INTERVAL 0 HOUR),'%%Y-%%m-%%d %%H:00:00') ASC;
 --updates table AS
 SELECT Prefix,AS_Path,ASPath_Count,LastModified FROM v_routes_history WHERE PeerName="10.0.2.2" AND Origin_AS=15169 ORDER BY LastModified;
+
+--top by Prefix
+SELECT Origin_AS, COUNT(DISTINCT Prefix) AS prefixes FROM v_routes_history WHERE PeerName="10.0.2.2" GROUP BY Origin_AS ORDER BY COUNT(DISTINCT Prefix) DESC LIMIT 10;

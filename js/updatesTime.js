@@ -248,11 +248,7 @@ function updateMinutes(label) {
 				var label = lineGraph.data.labels[firstPoint._index];
 				var value = lineGraph.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
 				if (firstPoint !== undefined){
-					if (value < 2000) {
-						window.location.href = `time.html?timestamp=${label}`;
-					} else {
-						alert("The selected dataset is too large to be loaded. Please try another one");
-					}
+					window.location.href = `time.html?timestamp=${label}`;
 				}
 			};
 

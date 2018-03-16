@@ -120,8 +120,9 @@ $(document).ready(function(){
         Count.push(data[i].ASPath_Count);
         LastModified.push(data[i].LastModified);
         // console.log(moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"));
-        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), Prefix[i], Path[i], Count[i]]).draw();
+        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), Prefix[i], Path[i], Count[i]]);
       }
+      dataTable.draw();
       var wlink = document.getElementById('asTableWarn');
       wlink.style.display = 'none';
       // var dlink = document.getElementById('dataTable');
@@ -163,8 +164,9 @@ function openAS(timestamp, as) {
         Prefix.push(data[i].Prefix);
         Path.push(data[i].AS_Path);
         Count.push(data[i].ASPath_Count);
-        dataTable.row.add([parsedTimestamp, Prefix[i], Path[i], Count[i]]).draw();
+        dataTable.row.add([parsedTimestamp, Prefix[i], Path[i], Count[i]]);
       }
+      dataTable.draw();
 			wlink.style.display = 'none';
     },
     error: function(data) {

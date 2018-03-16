@@ -21,10 +21,10 @@ $(document).ready(function(){
 					datasets : [
 						{
 							label: 'Count: ',
-							backgroundColor: 'rgba(194, 54, 22,1.0)',
-							borderColor: 'rgba(194, 54, 22,1.0)',
-							hoverBackgroundColor: 'rgba(232, 65, 24,1.0)',
-							hoverBorderColor: 'rgba(232, 65, 24,1.0)',
+							backgroundColor: 'rgba(127, 143, 166,1.0)',
+							borderColor: 'rgba(127, 143, 166,1.0)',
+							hoverBackgroundColor: 'rgba(113, 128, 147,1.0)',
+							hoverBorderColor: 'rgba(113, 128, 147,1.0)',
 							data: Prefix
 						}
 					]

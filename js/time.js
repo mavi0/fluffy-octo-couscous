@@ -22,9 +22,9 @@ $(document).ready(function(){
         Origin.push(data[i].Origin_AS);
         Path.push(data[i].AS_Path);
         Count.push(data[i].ASPath_Count);
-        dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]).draw();
-        // $('#dataTable').append('<tr><td>'+Prefix[i]+'</td><td>'+Origin[i]+'</td><td>'+Path[i]+'</td><td>'+Count[i]+'</td></tr>');
+        dataTable.row.add([Prefix[i], Origin[i], Path[i], Count[i]]);
       }
+      dataTable.draw();
     },
     error: function(data) {
 			console.log(data);

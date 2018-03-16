@@ -85,28 +85,49 @@
         <div class="card-footer small text-muted">Generated now, just for you</div>
       </div>
       <!-- Top Unstable Routes-->
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-bar-chart"></i> Top 10 Most Unstable Prefixes</div>
-          <div class="alert alert-info" id="mostUnstableCanvasWarn">
-            Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
-          </div>
-          <div class="card-body">
-            <canvas id="mostUnstableCanvas"></canvas>
-          </div>
-        <div class="card-footer small text-muted">Generated now, just for you</div>
-      </div>
+
       <!-- Top Corrected Unstable Routes-->
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-bar-chart"></i> Top 10 Most Unstable Prefixes, corrected by event</div>
-          <div class="alert alert-info" id="correctedMostUnstableCanvasWarn">
-            Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Top 10 Most Unstable Prefixes</div>
+              <div class="alert alert-info" id="mostUnstableCanvasWarn">
+                Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+              </div>
+              <div class="card-body">
+                <canvas id="mostUnstableCanvas"></canvas>
+              </div>
+            <div class="card-footer small text-muted">Generated now, just for you</div>
           </div>
-          <div class="card-body">
-            <canvas id="correctedMostUnstableCanvas"></canvas>
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Top 20 ASes, ranked by number of prefixes</div>
+              <div class="alert alert-info" id="topASPrefixCanvasWarn">
+                Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+              </div>
+              <div class="card-body">
+                <canvas id="topASPrefixCanvas"></canvas>
+              </div>
+            <div class="card-footer small text-muted">Generated now, just for you</div>
           </div>
-        <div class="card-footer small text-muted">Generated now, just for you</div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Top 10 Most Unstable Prefixes, corrected by event</div>
+              <div class="alert alert-info" id="correctedMostUnstableCanvasWarn">
+                Querying database. This may take some time<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span>
+              </div>
+              <div class="card-body">
+                <canvas id="correctedMostUnstableCanvas"></canvas>
+              </div>
+              <div class="card-footer small text-muted">Generated now, just for you</div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- /.container-fluid-->
@@ -140,6 +161,7 @@
         </div>
       </div>
     </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -160,6 +182,7 @@
 		<script type="text/javascript" src="js/mostUnstable.js"></script>
     <script type="text/javascript" src="js/correctedMostUnstable.js"></script>
     <script type="text/javascript" src="js/updatesTime.js"></script>
+    <script type="text/javascript" src="js/topASPrefix.js"></script>
   </div>
 </body>
 

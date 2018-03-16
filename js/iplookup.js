@@ -121,8 +121,9 @@ $(document).ready(function(){
         Count.push(data[i].ASPath_Count);
         LastModified.push(data[i].LastModified);
         // console.log(moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"));
-        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), As[i], Path[i], Count[i]]).draw();
+        dataTable.row.add([moment(LastModified[i]).format("MMMM Do YYYY, h:mm:ss"), As[i], Path[i], Count[i]]);
       }
+      dataTable.draw();
       var wlink = document.getElementById('ipTableWarn');
       wlink.style.display = 'none';
       // var dlink = document.getElementById('dataTable');
@@ -166,8 +167,9 @@ function openIP(timestamp, ip) {
         // console.log(Path[i]);
         Count.push(data[i].ASPath_Count);
         // console.log(Count[i]);
-        dataTable.row.add([parsedTimestamp, As[i], Path[i], Count[i]]).draw();
+        dataTable.row.add([parsedTimestamp, As[i], Path[i], Count[i]]);
       }
+      dataTable.draw();
 			wlink.style.display = 'none';
     },
     error: function(data) {
