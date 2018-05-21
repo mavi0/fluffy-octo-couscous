@@ -20,7 +20,7 @@ $(document).ready(function(){
 					labels: Origin_AS,
 					datasets : [
 						{
-							label: 'Count: ',
+							label: 'Count: Top ASes',
 							backgroundColor: 'rgba(72, 126, 176,1.0)',
 							borderColor: 'rgba(72, 126, 176,1.0)',
 							hoverBackgroundColor: 'rgba(64, 115, 158,1.0)',
@@ -31,10 +31,20 @@ $(document).ready(function(){
 				},
 				options: {
 					scales: {
+						xAxes: [{
+							scaleLabel: {
+                display: true,
+                labelString: 'AS Number'
+              },
+						}],
 						yAxes: [{
 							ticks: {
 								beginAtZero:true
-							}
+							},
+							scaleLabel: {
+                display: true,
+                labelString: 'Count'
+              },
 						}]
 					}
 				}

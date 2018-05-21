@@ -20,7 +20,7 @@ $(document).ready(function(){
 					labels: Origin_AS,
 					datasets : [
 						{
-							label: 'Count: ',
+							label: 'Count: Most Unstable',
 							backgroundColor: 'rgba(127, 143, 166,1.0)',
 							borderColor: 'rgba(127, 143, 166,1.0)',
 							hoverBackgroundColor: 'rgba(113, 128, 147,1.0)',
@@ -31,10 +31,20 @@ $(document).ready(function(){
 				},
 				options: {
 					scales: {
+						xAxes: [{
+							scaleLabel: {
+                display: true,
+                labelString: 'Prefix'
+              },
+						}],
 						yAxes: [{
 							ticks: {
 								beginAtZero:true
-							}
+							},
+							scaleLabel: {
+                display: true,
+                labelString: 'Count'
+              },
 						}]
 					}
 				}
