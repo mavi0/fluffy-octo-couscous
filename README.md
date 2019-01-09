@@ -1,4 +1,4 @@
-# This could be it mon
+# This could be it
 
 ---------------------
 ## Notes for the report
